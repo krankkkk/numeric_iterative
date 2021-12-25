@@ -1,6 +1,6 @@
-package de.iterations.client;
+package dev.tkrause.iterations.client;
 
-import de.iterations.client.views.GraphView;
+import dev.tkrause.iterations.client.views.GraphView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

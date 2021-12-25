@@ -1,3 +1,3 @@
 module algorithms {
-    exports de.iterations.algos;
+    exports dev.tkrause.iterations.algos;
 }

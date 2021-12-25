@@ -1,4 +1,4 @@
-package de.iterations.algos;
+package dev.tkrause.iterations.algos;
 
 import java.util.function.Function;
 

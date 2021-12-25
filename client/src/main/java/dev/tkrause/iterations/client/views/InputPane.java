@@ -1,4 +1,4 @@
-package de.iterations.client.views;
+package dev.tkrause.iterations.client.views;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

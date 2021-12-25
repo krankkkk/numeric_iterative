@@ -1,8 +1,8 @@
-package de.iterations.client.views;
+package dev.tkrause.iterations.client.views;
 
-import de.iterations.algos.Algo;
-import de.iterations.algos.AlgoConfig;
-import de.iterations.algos.SOR;
+import dev.tkrause.iterations.algos.Algo;
+import dev.tkrause.iterations.algos.AlgoConfig;
+import dev.tkrause.iterations.algos.SOR;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;

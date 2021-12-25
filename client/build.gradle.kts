@@ -6,7 +6,7 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.10"
 }
 
-group = "org.example"
+group = "dev.tkrause.iterations"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -17,9 +17,8 @@ dependencies {
     implementation(project(":algorithm"))
 }
 
-
 application {
-    mainClass.set("de.iterations.client.Main")
+    mainClass.set("dev.tkrause.iterations.client.Main")
     mainModule.set("linear")
     applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8")
 }

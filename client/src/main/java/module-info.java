@@ -3,5 +3,5 @@ module linear {
     requires javafx.controls;
     requires algorithms;
 
-    exports de.iterations.client to javafx.graphics;
+    exports dev.tkrause.iterations.client to javafx.graphics;
 }
