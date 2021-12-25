@@ -1,7 +1,6 @@
 package de.iterations.algos;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 public class Jacobi extends AbstractAlgo {
 
@@ -9,6 +8,7 @@ public class Jacobi extends AbstractAlgo {
         super(config);
     }
 
+    @Override
     protected void iterate(double[] approx, double[] previous) {
         Arrays.setAll(approx, i -> calc(i, previous));
     }

@@ -1,7 +1,6 @@
 package de.iterations.algos;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 public class SOR extends GaussSeidel {
 
@@ -17,6 +16,7 @@ public class SOR extends GaussSeidel {
         return w;
     }
 
+    @Override
     protected void iterate(double[] approx, double[] previous) {
         Arrays.setAll(approx, i -> (1 - w) * approx[i] + w * calc(i, approx, previous));
     }
