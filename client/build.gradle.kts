@@ -6,8 +6,8 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.10"
 }
 
-group = "dev.tkrause.iterations"
-version = "1.0-SNAPSHOT"
+group = project.group
+version = project.version
 
 repositories {
     mavenCentral()

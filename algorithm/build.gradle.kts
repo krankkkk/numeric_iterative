@@ -2,8 +2,8 @@ plugins {
     java
 }
 
-group = "dev.tkrause.iterations."
-version = "1.0-SNAPSHOT"
+group = project.group
+version = project.version
 
 repositories {
     mavenCentral()
