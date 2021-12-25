@@ -1,0 +1,11 @@
+.gradle
+out
+build
+Abgabe
+client/out
+client/build
+algorithm/out
+algorithm/build
+.idea
+
+gradle/wrapper/gradle-wrapper.jar
