@@ -22,15 +22,15 @@ abstract class AbstractAlgo implements Algorithm {
             throw new IllegalArgumentException("Cannot translate Matrix to diagonally dominant");
         }
 
-        double error = Double.MAX_VALUE;
+        double difference = Double.MAX_VALUE;
         final double[] approx = new double[this.matrix.length];
 
-        while (error > this.epsilon) {
+        while (difference > this.epsilon) {
             final double[] previous = Arrays.copyOf(approx, approx.length);
             iterate(approx, previous);
 
             this.onIteration.accept(Arrays.copyOf(approx, approx.length));
-            error = IntStream.range(0, approx.length)
+            difference = IntStream.range(0, approx.length)
                     .mapToDouble(i -> approx[i] - previous[i])
                     .map(Math::abs)
                     .max()

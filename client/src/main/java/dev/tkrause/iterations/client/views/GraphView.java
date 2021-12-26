@@ -2,6 +2,7 @@ package dev.tkrause.iterations.client.views;
 
 import dev.tkrause.iterations.algos.Algo;
 import dev.tkrause.iterations.algos.AlgoConfig;
+import dev.tkrause.iterations.algos.Algorithm;
 import dev.tkrause.iterations.algos.SOR;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
@@ -24,8 +25,8 @@ import java.util.stream.IntStream;
 
 public class GraphView extends BorderPane {
 
-    private static final double LOWER_BOUND = 0.5;
-    private static final double UPPER_BOUND = 1.5;
+    private static final double LOWER_BOUND = 0.1;
+    private static final double UPPER_BOUND = 1.9;
     private static final double TICK_RATE = 0.1;
 
     private final InputPane inputPane;
@@ -89,8 +90,8 @@ public class GraphView extends BorderPane {
 
     private void onShowData(Algo algo) {
         final List<double[]> steps = new LinkedList<>();
-        algo.getInstance(new AlgoConfig(this.inputPane.getMatrix(), this.inputPane.getEpsilon(), steps::add))
-                .solve();
+        Algorithm instance = algo.getInstance(new AlgoConfig(this.inputPane.getMatrix(), this.inputPane.getEpsilon(), steps::add));
+        instance.solve();
         ListView<Step> table = new ListView<>();
 
 
@@ -99,6 +100,7 @@ public class GraphView extends BorderPane {
                 .forEach(table.getItems()::add);
 
         Dialog<Object> dialog = new Dialog<>();
+        dialog.setTitle("%s-Data".formatted(instance.getClass().getSimpleName()));
         DialogPane pane = dialog.getDialogPane();
         pane.setContent(table);
         pane.getButtonTypes().add(ButtonType.CLOSE);
@@ -115,7 +117,7 @@ public class GraphView extends BorderPane {
 
             return Arrays.stream(approx)
                     .mapToObj(v -> instance.format(v) + '\t')
-                    .collect(Collectors.joining("", "Step " + this.i + '\t', ""));
+                    .collect(Collectors.joining("", "Step " + (this.i + 1) + '\t', ""));
         }
     }
 }

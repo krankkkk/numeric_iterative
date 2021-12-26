@@ -18,6 +18,6 @@ public class SOR extends GaussSeidel {
 
     @Override
     protected void iterate(double[] approx, double[] previous) {
-        Arrays.setAll(approx, i -> (1 - w) * approx[i] + w * calc(i, approx, previous));
+        Arrays.setAll(approx, i -> w * calc(i, approx, previous) + (1 - w) * previous[i]);
     }
 }
