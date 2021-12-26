@@ -3,6 +3,8 @@ package dev.tkrause.iterations.client.views;
 import dev.tkrause.iterations.algos.Algo;
 import dev.tkrause.iterations.algos.AlgoConfig;
 import dev.tkrause.iterations.algos.Algorithm;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -21,7 +23,7 @@ public class Graphs extends LineChart<Number, Number> {
 
     public Graphs(final InputPane inputPane) {
         super(new NumberAxis("Step-count", 1, 10, 1),
-                new NumberAxis("Error between steps", 0, 0.5, 0.05));
+                new NumberAxis("Error between steps", 1, 0.5, 0.05));
         getXAxis().setAutoRanging(true);
         getYAxis().setAutoRanging(true);
         this.inputPane = inputPane;
@@ -37,22 +39,24 @@ public class Graphs extends LineChart<Number, Number> {
     private XYChart.Series<Number, Number> runAlgo(Algo algo) {
         final List<double[]> steps = new LinkedList<>();
         Algorithm algorithm = algo.getInstance(new AlgoConfig(this.inputPane.getMatrix(), this.inputPane.getEpsilon(), steps::add));
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName(algorithm.getClass().getSimpleName());
         algorithm.solve();
 
-        for (int i = 0; i < steps.size() - 1; i++) {
-            double[] start = steps.get(i);
-            double[] end = steps.get(i + 1);
-            double v = IntStream.range(0, start.length)
-                    .mapToDouble(j -> start[j] - end[j])
-                    .map(Math::abs)
-                    .max()
-                    .orElseThrow();
-            series.getData().add(new XYChart.Data<>(i + 1, v));
-        }
+        ObservableList<Data<Number, Number>> data = IntStream.range(0, steps.size() - 1)
+                .mapToObj(i -> toData(steps, i))
+                .collect(FXCollections::observableArrayList, List::add, List::addAll);
 
-        return series;
+        return new Series<>(algorithm.getClass().getSimpleName(), data);
+    }
+
+    private Data<Number, Number> toData(List<double[]> steps, int i) {
+        return IntStream.range(0, steps.get(i).length)
+                .mapToDouble(j -> steps.get(i)[j] - steps.get(i + 1)[j])
+                .map(Math::abs)
+                .max()
+                .stream()
+                .mapToObj(err -> new Data<Number, Number>(i + 1, err))
+                .findFirst()
+                .orElseThrow();
     }
 
     public void onCheckBoxAction(CheckBox checkBox) {

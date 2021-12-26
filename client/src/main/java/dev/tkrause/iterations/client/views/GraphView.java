@@ -24,6 +24,10 @@ import java.util.stream.IntStream;
 
 public class GraphView extends BorderPane {
 
+    private static final double LOWER_BOUND = 0.5;
+    private static final double UPPER_BOUND = 1.5;
+    private static final double TICK_RATE = 0.1;
+
     private final InputPane inputPane;
     private final Graphs graphs;
 
@@ -57,13 +61,13 @@ public class GraphView extends BorderPane {
     }
 
     private void onMinimize() {
-        LineChart<Number, Number> chart = new LineChart<>(new NumberAxis("ω", 0.5, 1.5, 0.1),
+        LineChart<Number, Number> chart = new LineChart<>(new NumberAxis("ω", LOWER_BOUND, UPPER_BOUND, TICK_RATE),
                 new NumberAxis("Steps to Error-margin", 0, 50, 1));
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName("SOR-Steps");
         chart.getData().add(series);
 
-        DoubleStream.iterate(0.1, d -> d < 1.5, d -> d + 0.01)
+        DoubleStream.iterate(LOWER_BOUND, d -> d < UPPER_BOUND, d -> d + TICK_RATE / 10)
                 .mapToObj(d -> {
                     AtomicInteger i = new AtomicInteger();
                     SOR algo = new SOR(new AlgoConfig(this.inputPane.getMatrix().clone(), this.inputPane.getEpsilon(), e -> i.incrementAndGet()), d);

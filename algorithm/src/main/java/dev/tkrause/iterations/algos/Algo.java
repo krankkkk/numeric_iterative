@@ -3,7 +3,7 @@ package dev.tkrause.iterations.algos;
 import java.util.function.Function;
 
 public enum Algo {
-    SOR(config -> new SOR(config, 1.04)),
+    SOR(config -> new SOR(config, 1.03)),
     GaussSeidel(GaussSeidel::new),
     Jacobi(Jacobi::new);
 
